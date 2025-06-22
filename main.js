@@ -130,11 +130,18 @@ class SoundboardApp {
 		this.filteredSounds = [];
 		this.searchQuery = "";
 		this.isOnline = navigator.onLine;
+		this.config = null;
 
 		this.init();
 	}
 
 	async init() {
+		// Load configuration first
+		await this.loadConfig();
+
+		// Update page title and meta description with config
+		this.updatePageMetadata();
+
 		// Register service worker
 		if ("serviceWorker" in navigator) {
 			try {
@@ -153,16 +160,27 @@ class SoundboardApp {
 			} catch (error) {
 				console.error("Service Worker registration failed:", error);
 			}
-		}
-
-		// Listen for messages from service worker
+		}		// Listen for messages from service worker
 		if ("serviceWorker" in navigator) {
 			navigator.serviceWorker.addEventListener("message", (event) => {
 				if (event.data && event.data.type === "AUDIO_CACHED") {
 					const cachedUrl = event.data.url;
-					const soundPath = new URL(cachedUrl).pathname;
-					console.log("📢 Service worker notified: Audio cached -", soundPath);
-					this.updateSoundCacheStatus(soundPath, true);
+					try {
+						// Handle both absolute and relative URLs
+						let soundPath;
+						if (cachedUrl.startsWith("http")) {
+							soundPath = new URL(cachedUrl).pathname;
+						} else {
+							// Already a relative path, use as-is
+							soundPath = cachedUrl;
+						}
+						console.log("📢 Service worker notified: Audio cached -", soundPath);
+						this.updateSoundCacheStatus(soundPath, true);
+					} catch (error) {
+						console.error("Error processing cached URL:", cachedUrl, error);
+						// Fallback: try to use the URL as-is
+						this.updateSoundCacheStatus(cachedUrl, true);
+					}
 				}
 			});
 		}
@@ -190,6 +208,120 @@ class SoundboardApp {
 			this.showOfflineIndicator();
 		}
 	}
+
+	async loadConfig() {
+		try {
+			console.log("🔧 Loading configuration...");
+			const response = await fetch("/config.json");
+			if (response.ok) {
+				this.config = await response.json();
+				console.log("✅ Configuration loaded");
+			} else {
+				throw new Error("Config not found");
+			}
+		} catch (error) {
+			console.warn("⚠️ Could not load config, using defaults:", error); // Fallback configuration
+			this.config = {
+				title: "Soundboard PWA",
+				shortName: "Soundboard",
+				subtitle: "SOUNDBOARD",
+				description: "A Progressive Web App soundboard",
+				headerTitle: "♫ SOUNDBOARD ♫",
+				searchPlaceholder: "SEARCH FOR SOUNDS...",
+				tipText: "↑ PRESS [S] TO SEARCH • CLICK TO PLAY ↑",
+				loadingText: "LOADING SOUNDS...",
+				offlineText: "OFFLINE MODE - USING CACHED SOUNDS",
+				soundCountText: "AUDIO DROPS",
+				themeColor: "#1a1a1a",
+				backgroundColor: "#1a1a1a",
+			};
+		}
+	}
+
+	updatePageMetadata() {
+		// Update page title
+		document.title = `🔊 ${this.config.title}`;
+
+		// Update meta description
+		const metaDescription = document.querySelector('meta[name="description"]');
+		if (metaDescription) {
+			metaDescription.setAttribute("content", this.config.description);
+		}
+
+		// Update theme color
+		const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+		if (themeColorMeta) {
+			themeColorMeta.setAttribute("content", this.config.themeColor);
+		}
+
+		// Update app title for PWA
+		const appleTitleMeta = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+		if (appleTitleMeta) {
+			appleTitleMeta.setAttribute("content", this.config.title);
+		}
+
+		// Update manifest link to dynamic version
+		this.updateManifest();
+
+		// Update header content
+		const headerTitle = document.querySelector(".header h1");
+		if (headerTitle) {
+			headerTitle.textContent = this.config.headerTitle;
+		}
+
+		// Update subtitle (will be updated again when sounds load)
+		this.updateSubtitle(0);
+
+		// Update search placeholder
+		const searchInput = document.getElementById("search-input");
+		if (searchInput) {
+			searchInput.placeholder = this.config.searchPlaceholder;
+		}
+
+		// Update tip text
+		const tipElement = document.querySelector(".tip");
+		if (tipElement) {
+			tipElement.textContent = this.config.tipText;
+		}
+
+		// Update loading text
+		const loadingElement = document.querySelector(".loading");
+		if (loadingElement) {
+			loadingElement.textContent = this.config.loadingText;
+		}
+
+		// Update offline indicator text
+		const offlineIndicator = document.getElementById("offline-indicator");
+		if (offlineIndicator) {
+			offlineIndicator.textContent = this.config.offlineText;
+		}
+	}	async updateManifest() {
+		try {
+			// Instead of using blob URLs, we'll update the existing manifest link
+			// and let the service worker handle manifest requests dynamically
+			console.log("🔧 Manifest will be updated via service worker");
+			
+			// Store config in a global variable for service worker access
+			window.soundboardConfig = this.config;
+			
+			// Force a manifest refresh by updating the href with a timestamp
+			let manifestLink = document.querySelector('link[rel="manifest"]');
+			if (manifestLink) {
+				const timestamp = Date.now();
+				manifestLink.href = `/manifest.json?t=${timestamp}`;
+			}
+		} catch (error) {
+			console.warn("⚠️ Could not update manifest:", error);
+		}
+	}
+
+	updateSubtitle(soundCount) {
+		const subtitle = document.querySelector(".header .subtitle");
+		if (subtitle) {
+			subtitle.innerHTML = `${this.config.subtitle} • <span id="sound-count">${soundCount}</span> ${this.config.soundCountText}`;
+		}
+	}
+
 	setupEventListeners() {
 		// Search input
 		const searchInput = document.getElementById("search-input");
@@ -294,7 +426,7 @@ class SoundboardApp {
 	}
 	async renderSounds() {
 		const container = document.getElementById("sounds-container");
-		const soundCount = document.getElementById("sound-count");
+
 		if (!this.filteredSounds.length && this.searchQuery) {
 			container.innerHTML = `
                 <div class="loading">
@@ -307,7 +439,7 @@ class SoundboardApp {
 		if (!this.sounds.length) {
 			container.innerHTML = `
                 <div class="loading">
-                    ${this.isOnline ? "⟡ LOADING SOUNDS..." : "✗ NO SOUNDS AVAILABLE OFFLINE ✗"}
+                    ${this.isOnline ? this.config.loadingText : "✗ NO SOUNDS AVAILABLE OFFLINE ✗"}
                 </div>
             `;
 			return;
@@ -317,8 +449,8 @@ class SoundboardApp {
 		const soundsToShow = this.filteredSounds.length ? this.filteredSounds : this.sounds;
 		soundsToShow.sort((a, b) => a.name.localeCompare(b.name));
 
-		// Update sound count
-		soundCount.textContent = this.sounds.length;
+		// Update sound count using the new method
+		this.updateSubtitle(this.sounds.length);
 
 		// Check which sounds are cached
 		const soundsWithCacheStatus = await this.checkCachedSounds();

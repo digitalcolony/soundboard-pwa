@@ -28,22 +28,113 @@ A Progressive Web App (PWA) version of the Neil Rogers Soundboard that works off
    npm install
    ```
 
-2. Start development server:
+2. (Optional) If you have your own sound files, place them in `public/sounds/` and generate the metadata:
+
+   ```bash
+   npm run generate-sounds
+   ```
+
+3. (Optional) Customize the soundboard by editing `public/config.json`:
+
+   ```bash
+   # Copy the example config
+   cp config.example.json public/config.json
+   # Edit the configuration file
+   nano public/config.json
+   ```
+
+4. Start development server:
 
    ```bash
    npm run dev
    ```
 
-3. Build for production:
+5. Build for production:
 
    ```bash
    npm run build
    ```
 
-4. Preview production build:
+6. Preview production build:
    ```bash
    npm run preview
    ```
+
+## Configuration
+
+The soundboard can be customized by editing the `public/config.json` file. This allows you to create a soundboard for any purpose without modifying the source code.
+
+### Configuration Options
+
+```json
+{
+	"title": "Your Soundboard Name",
+	"shortName": "Short Name",
+	"subtitle": "YOUR WEBSITE OR BRAND",
+	"description": "Description for search engines and app stores",
+	"headerTitle": "♫ YOUR SOUNDBOARD ♫",
+	"searchPlaceholder": "SEARCH FOR SOUNDS...",
+	"tipText": "↑ PRESS [S] TO SEARCH • CLICK TO PLAY ↑",
+	"loadingText": "LOADING SOUNDS...",
+	"offlineText": "OFFLINE MODE - USING CACHED SOUNDS",
+	"soundCountText": "AUDIO DROPS",
+	"themeColor": "#1a1a1a",
+	"backgroundColor": "#1a1a1a"
+}
+```
+
+### What gets updated:
+
+- **Page title** and meta description for SEO
+- **PWA manifest** (app name, description, colors)
+- **All UI text** throughout the application
+- **Theme colors** for the app and browser chrome
+
+Simply edit the config file and refresh the page to see your changes!
+
+## Creating Your Own Soundboard
+
+This PWA is designed to be easily customizable for any type of soundboard. Here's how to create your own:
+
+### Step 1: Prepare Your Audio Files
+
+1. Place your MP3 files in the `public/sounds/` directory
+2. Use descriptive filenames (they'll be converted to display names)
+3. Supported format: MP3 (for best browser compatibility)
+
+### Step 2: Generate Metadata
+
+Run the generator to create the sounds database:
+
+```bash
+npm run generate-sounds
+```
+
+This will:
+
+- Scan all MP3 files in `public/sounds/`
+- Generate `public/api/sounds.json` with metadata
+- Create proper display names from filenames
+
+### Step 3: Customize the Branding
+
+1. Copy the example config: `cp config.example.json public/config.json`
+2. Edit `public/config.json` with your details:
+   - Change the title, subtitle, and description
+   - Update colors to match your brand
+   - Customize all UI text
+
+### Step 4: Replace Icons (Optional)
+
+Replace the icons in `public/icons/` with your own:
+
+- Use the same filenames and sizes
+- Recommended: 512x512 source image, scale down for other sizes
+- PNG format with transparent background
+
+### Step 5: Deploy
+
+The app works on any static hosting service (Netlify, Vercel, GitHub Pages, etc.)
 
 ## How It Works
 

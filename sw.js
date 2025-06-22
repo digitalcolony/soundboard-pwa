@@ -73,7 +73,10 @@ self.addEventListener("fetch", (event) => {
 	console.log("Service Worker: Intercepting request", requestUrl.pathname);
 
 	// Handle different types of requests
-	if (requestUrl.pathname.startsWith("/sounds/")) {
+	if (requestUrl.pathname === "/manifest.json") {
+		console.log("Service Worker: Handling manifest request");
+		event.respondWith(handleManifestRequest(event.request));
+	} else if (requestUrl.pathname.startsWith("/sounds/")) {
 		console.log("Service Worker: Handling audio request", requestUrl.pathname);
 		// Audio files - cache with network first strategy
 		event.respondWith(handleAudioRequest(event.request));
@@ -87,6 +90,117 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(handleAppShellRequest(event.request));
 	}
 });
+
+// Handle manifest requests with dynamic configuration
+async function handleManifestRequest(request) {
+	try {
+		// Try to get config from a client
+		const clients = await self.clients.matchAll();
+		let config = null;
+
+		// Check if any client has the config available
+		for (const client of clients) {
+			try {
+				// We can't directly access window.soundboardConfig from SW,
+				// so we'll try to fetch the config ourselves
+				const configResponse = await fetch("/config.json");
+				if (configResponse.ok) {
+					config = await configResponse.json();
+					break;
+				}
+			} catch (error) {
+				console.log("Config fetch failed:", error);
+			}
+		}
+
+		// Fallback config if we can't get the real one
+		if (!config) {
+			config = {
+				title: "Soundboard PWA",
+				shortName: "Soundboard",
+				description: "A Progressive Web App soundboard",
+				themeColor: "#1a1a1a",
+				backgroundColor: "#1a1a1a",
+			};
+		}
+
+		// Create dynamic manifest
+		const dynamicManifest = {
+			name: config.title,
+			short_name: config.shortName || config.title.split(" ")[0],
+			description: config.description,
+			start_url: "/",
+			display: "standalone",
+			background_color: config.backgroundColor || config.themeColor,
+			theme_color: config.themeColor,
+			orientation: "portrait-primary",
+			scope: "/",
+			icons: [
+				{
+					src: "/icons/icon-72x72.png",
+					sizes: "72x72",
+					type: "image/png",
+					purpose: "maskable any",
+				},
+				{
+					src: "/icons/icon-96x96.png",
+					sizes: "96x96",
+					type: "image/png",
+					purpose: "maskable any",
+				},
+				{
+					src: "/icons/icon-128x128.png",
+					sizes: "128x128",
+					type: "image/png",
+					purpose: "maskable any",
+				},
+				{
+					src: "/icons/icon-144x144.png",
+					sizes: "144x144",
+					type: "image/png",
+					purpose: "maskable any",
+				},
+				{
+					src: "/icons/icon-152x152.png",
+					sizes: "152x152",
+					type: "image/png",
+					purpose: "maskable any",
+				},
+				{
+					src: "/icons/icon-192x192.png",
+					sizes: "192x192",
+					type: "image/png",
+					purpose: "maskable any",
+				},
+				{
+					src: "/icons/icon-384x384.png",
+					sizes: "384x384",
+					type: "image/png",
+					purpose: "maskable any",
+				},
+				{
+					src: "/icons/icon-512x512.png",
+					sizes: "512x512",
+					type: "image/png",
+					purpose: "maskable any",
+				},
+			],
+		};
+
+		console.log("Service Worker: Generated dynamic manifest for", config.title);
+
+		return new Response(JSON.stringify(dynamicManifest, null, 2), {
+			headers: {
+				"Content-Type": "application/json",
+				"Cache-Control": "no-cache",
+			},
+		});
+	} catch (error) {
+		console.error("Service Worker: Error handling manifest request", error);
+		// Fallback to static manifest
+		return fetch("/manifest.json");
+	}
+}
 
 // Handle audio file requests
 async function handleAudioRequest(request) {

@@ -1,0 +1,14 @@
+{
+    "title": "Neil Rogers Soundboard",
+    "shortName": "NR Soundboard",
+    "subtitle": "NEILROGERS.ORG",
+    "description": "Offline Neil Rogers Soundboard - Play drops from Neil Rogers, Jennifer Rehm, Jim Mandich, Larry King, and more!",
+    "headerTitle": "♫ NEIL ROGERS SOUNDBOARD ♫",
+    "searchPlaceholder": "SEARCH FOR SOUNDS...",
+    "tipText": "↑ PRESS [S] TO SEARCH • CLICK TO PLAY ↑",
+    "loadingText": "LOADING SOUNDS...",
+    "offlineText": "OFFLINE MODE - USING CACHED SOUNDS",
+    "soundCountText": "AUDIO DROPS",
+    "themeColor": "#1a1a1a",
+    "backgroundColor": "#1a1a1a"
+}

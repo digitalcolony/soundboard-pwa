@@ -1,0 +1,14 @@
+{
+    "title": "My Custom Soundboard",
+    "shortName": "My Soundboard",
+    "subtitle": "MY CUSTOM BRAND",
+    "description": "A customizable soundboard for my favorite audio clips and sounds!",
+    "headerTitle": "♫ MY CUSTOM SOUNDBOARD ♫",
+    "searchPlaceholder": "SEARCH FOR CLIPS...",
+    "tipText": "↑ PRESS [S] TO SEARCH • CLICK TO PLAY ↑",
+    "loadingText": "LOADING CLIPS...",
+    "offlineText": "OFFLINE MODE - USING CACHED CLIPS",
+    "soundCountText": "AUDIO CLIPS",
+    "themeColor": "#2d5aa0",
+    "backgroundColor": "#1a1a2e"
+}

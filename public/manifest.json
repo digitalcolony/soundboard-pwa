@@ -1,7 +1,7 @@
 {
-    "name": "Neil Rogers Soundboard",
-    "short_name": "NR Soundboard",
-    "description": "Offline-capable Neil Rogers Soundboard with drops from Neil Rogers, Jennifer Rehm, Jim Mandich, Larry King, and more!",
+    "name": "Soundboard PWA",
+    "short_name": "Soundboard",
+    "description": "A Progressive Web App soundboard that works offline and can be installed as a standalone app.",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#1a1a1a",
