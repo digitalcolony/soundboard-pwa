@@ -160,7 +160,7 @@ class SoundboardApp {
 			} catch (error) {
 				console.error("Service Worker registration failed:", error);
 			}
-		}		// Listen for messages from service worker
+		} // Listen for messages from service worker
 		if ("serviceWorker" in navigator) {
 			navigator.serviceWorker.addEventListener("message", (event) => {
 				if (event.data && event.data.type === "AUDIO_CACHED") {
@@ -295,15 +295,16 @@ class SoundboardApp {
 		if (offlineIndicator) {
 			offlineIndicator.textContent = this.config.offlineText;
 		}
-	}	async updateManifest() {
+	}
+	async updateManifest() {
 		try {
 			// Instead of using blob URLs, we'll update the existing manifest link
 			// and let the service worker handle manifest requests dynamically
 			console.log("🔧 Manifest will be updated via service worker");
-			
+
 			// Store config in a global variable for service worker access
 			window.soundboardConfig = this.config;
-			
+
 			// Force a manifest refresh by updating the href with a timestamp
 			let manifestLink = document.querySelector('link[rel="manifest"]');
 			if (manifestLink) {
@@ -457,17 +458,13 @@ class SoundboardApp {
 		const soundsToShowWithCache = soundsToShow.map((sound) => {
 			const cached = soundsWithCacheStatus.find((s) => s.mp3 === sound.mp3);
 			return { ...sound, isCached: cached?.isCached || false };
-		});
-		// Render sound buttons
+		}); // Render sound buttons
 		container.innerHTML = soundsToShowWithCache
 			.map(
 				(sound) => `
             <button 
                 class="sound-button ${sound.isCached ? "cached" : ""}" 
                 data-sound='${JSON.stringify(sound).replace(/'/g, "&apos;")}'
-                title="${this.escapeHtml(sound.artist)}${
-					sound.isCached ? " (Cached for offline)" : ""
-				}"
             >
                 <div class="sound-name">${this.escapeHtml(sound.name)}</div>
                 <div class="sound-artist">${this.escapeHtml(sound.artist)}</div>
@@ -608,7 +605,6 @@ class SoundboardApp {
 		div.textContent = text;
 		return div.innerHTML;
 	}
-
 	updateSoundCacheStatus(soundPath, isCached) {
 		// Find the button for this sound and update its cached status
 		const buttons = document.querySelectorAll(".sound-button");
@@ -618,11 +614,9 @@ class SoundboardApp {
 				if (sound.mp3 === soundPath) {
 					if (isCached) {
 						button.classList.add("cached");
-						button.title = `${sound.artist} (Cached for offline)`;
 						console.log("💾 UI updated: Sound cached -", soundPath);
 					} else {
 						button.classList.remove("cached");
-						button.title = sound.artist;
 					}
 				}
 			} catch (error) {
