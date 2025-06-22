@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-console.log("🎵 Syncing soundboard data from main site...");
+console.log("🎵 Checking soundboard data...");
 
 // Ensure public/api directory exists
 const apiDir = "public/api";
@@ -9,71 +9,30 @@ if (!fs.existsSync(apiDir)) {
 	fs.mkdirSync(apiDir, { recursive: true });
 }
 
-// Copy sounds JSON data
-const sourceSoundsJson = "../src/data/soundboard.json";
+// Check if sounds.json already exists
 const targetSoundsJson = "public/api/sounds.json";
 
-if (fs.existsSync(sourceSoundsJson)) {
-	console.log("📄 Copying soundboard data...");
-	fs.copyFileSync(sourceSoundsJson, targetSoundsJson);
-	console.log("✅ Soundboard data copied");
+if (fs.existsSync(targetSoundsJson)) {
+	console.log("✅ Soundboard data found");
 
 	// Read and display count
 	const data = JSON.parse(fs.readFileSync(targetSoundsJson, "utf8"));
 	console.log(`📊 Found ${data.files?.length || 0} sounds`);
 } else {
-	console.log("❌ Source soundboard.json not found at ../src/data/soundboard.json");
 	console.log("📄 Creating empty sounds.json...");
 	const emptyData = JSON.stringify({ files: [] }, null, 2);
 	fs.writeFileSync(targetSoundsJson, emptyData);
 }
 
-// Copy sounds directory
-const soundsSources = ["../public/sounds", "../src/sounds"];
-let soundsCopied = false;
+// Check if sounds directory exists
+const soundsDir = "public/sounds";
 
-for (const source of soundsSources) {
-	if (fs.existsSync(source)) {
-		console.log(`🎵 Copying sounds directory from ${source}...`);
-
-		// Create target directory
-		const target = "public/sounds";
-		if (!fs.existsSync(target)) {
-			fs.mkdirSync(target, { recursive: true });
-		}
-
-		// Copy files recursively
-		copyDir(source, target);
-		console.log("✅ Sounds directory copied");
-		soundsCopied = true;
-		break;
-	}
+if (fs.existsSync(soundsDir)) {
+	const soundFiles = fs.readdirSync(soundsDir).filter((file) => file.endsWith(".mp3"));
+	console.log(`🎵 Found ${soundFiles.length} sound files`);
+} else {
+	console.log("📁 Creating sounds directory...");
+	fs.mkdirSync(soundsDir, { recursive: true });
 }
 
-if (!soundsCopied) {
-	console.log("❌ Sounds directory not found");
-	console.log("📁 Creating empty sounds directory...");
-	fs.mkdirSync("public/sounds", { recursive: true });
-}
-
-console.log("🎉 Data sync complete!");
-
-// Helper function to copy directory recursively
-function copyDir(src, dest) {
-	if (!fs.existsSync(dest)) {
-		fs.mkdirSync(dest, { recursive: true });
-	}
-
-	const files = fs.readdirSync(src);
-
-	for (const file of files) {
-		const srcPath = path.join(src, file);
-		const destPath = path.join(dest, file);
-
-		if (fs.statSync(srcPath).isDirectory()) {
-			copyDir(srcPath, destPath);
-		} else {
-			fs.copyFileSync(srcPath, destPath);
-		}
-	}
-}
+console.log("🎉 Setup complete!");

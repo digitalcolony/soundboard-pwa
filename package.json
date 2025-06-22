@@ -1,15 +1,16 @@
 {
     "name": "neil-rogers-soundboard-pwa",
     "version": "1.0.0",
+    "type": "module",
     "description": "Neil Rogers Soundboard Progressive Web App",
     "main": "index.html",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "sync": "node sync-data.js",
-        "dev:sync": "npm run sync && npm run dev",
-        "build:sync": "npm run sync && npm run build"
+        "setup": "node sync-data.js",
+        "dev:setup": "npm run setup && npm run dev",
+        "build:setup": "npm run setup && npm run build"
     },
     "devDependencies": {
         "vite": "^5.0.0"
