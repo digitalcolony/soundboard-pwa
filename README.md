@@ -1,6 +1,6 @@
-# Neil Rogers Soundboard PWA
+# PWA Soundboard
 
-A Progressive Web App (PWA) version of the Neil Rogers Soundboard that works offline and can be installed as a standalone app.
+A Progressive Web App (PWA) soundboard that works offline and can be installed as a standalone app.
 
 ## Features
 
@@ -96,13 +96,65 @@ Simply edit the config file and refresh the page to see your changes!
 
 This PWA is designed to be easily customizable for any type of soundboard. Here's how to create your own:
 
-### Step 1: Prepare Your Audio Files
+### Step 1: Update ID3 Tags (Recommended)
+
+For the best user experience, update the ID3 tags in your MP3 files before adding them to the soundboard. The generator will read these tags to create proper metadata.
+
+#### What are ID3 Tags?
+
+ID3 tags are metadata embedded in MP3 files that contain information like:
+
+- **Title**: The display name for the sound
+- **Artist**: Who said/created the sound
+
+#### Tools for Editing ID3 Tags
+
+**Free Options:**
+
+- **Mp3tag** (Windows/Mac) - https://www.mp3tag.de/en/
+- **Kid3** (Windows/Mac/Linux) - https://kid3.kde.org/
+- **MusicBrainz Picard** (Windows/Mac/Linux) - https://picard.musicbrainz.org/
+
+**Online Tools:**
+
+- **Audio Trimmer ID3 Editor** - https://audiotrimmer.com/online-mp3-editor/
+- **MP3 Tag Editor Online** - Various free online options
+
+#### Quick Guide with Mp3tag:
+
+1. **Download and install Mp3tag** from https://www.mp3tag.de/en/
+2. **Open Mp3tag** and select your MP3 files folder
+3. **Select the files** you want to edit (Ctrl+A for all)
+4. **Edit the fields** in the panel below:
+   - **Title**: Enter the sound's display name (e.g., "Hello there!")
+   - **Artist**: Enter who said it (e.g., "Neil Rogers", "Jennifer Rehm")
+   - **Album**: Optional (could be your soundboard name)
+5. **Save changes** with Ctrl+S
+
+#### Batch Editing Tips:
+
+- **Select multiple files** to edit the Artist field for all sounds from the same person
+- **Use consistent naming** for artists to group sounds properly
+- **Keep titles short and descriptive** for better mobile display
+- **Remove unwanted tags** (like track numbers) that aren't needed
+
+#### Example ID3 Setup:
+
+```
+Filename: Neil-Rogers-Hello-There.mp3
+Title: Hello There!
+Artist: Neil Rogers
+```
+
+If you skip this step, the generator will use filenames as titles and "Unknown" as the artist.
+
+### Step 2: Prepare Your Audio Files
 
 1. Place your MP3 files in the `public/sounds/` directory
 2. Use descriptive filenames (they'll be converted to display names)
 3. Supported format: MP3 (for best browser compatibility)
 
-### Step 2: Generate Metadata
+### Step 3: Generate Metadata
 
 Run the generator to create the sounds database:
 
@@ -116,7 +168,7 @@ This will:
 - Generate `public/api/sounds.json` with metadata
 - Create proper display names from filenames
 
-### Step 3: Customize the Branding
+### Step 4: Customize the Branding
 
 1. Copy the example config: `cp config.example.json public/config.json`
 2. Edit `public/config.json` with your details:
@@ -124,7 +176,7 @@ This will:
    - Update colors to match your brand
    - Customize all UI text
 
-### Step 4: Replace Icons (Optional)
+### Step 5: Replace Icons (Optional)
 
 Replace the icons in `public/icons/` with your own:
 
@@ -132,7 +184,7 @@ Replace the icons in `public/icons/` with your own:
 - Recommended: 512x512 source image, scale down for other sizes
 - PNG format with transparent background
 
-### Step 5: Deploy
+### Step 6: Deploy
 
 The app works on any static hosting service (Netlify, Vercel, GitHub Pages, etc.)
 

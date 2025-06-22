@@ -31,22 +31,9 @@ for (const file of soundFiles) {
 
 	try {
 		// Read ID3 tags from the MP3 file
-		const tags = NodeID3.read(filePath);
-
-		// Extract information from ID3 tags with fallbacks
+		const tags = NodeID3.read(filePath); // Extract information from ID3 tags with fallbacks
 		let title = tags.title || nameWithoutExt.replace(/[-_]/g, " ").trim();
-		let artist = tags.artist || "Unknown";
-		let duration = "0:01"; // Default duration
-
-		// If we have raw duration data, format it
-		if (tags.raw && tags.raw.TLEN) {
-			// TLEN is in milliseconds
-			const milliseconds = parseInt(tags.raw.TLEN);
-			const seconds = Math.floor(milliseconds / 1000);
-			const minutes = Math.floor(seconds / 60);
-			const remainingSeconds = seconds % 60;
-			duration = `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
-		}
+		let artist = tags.artist || "";
 
 		// Clean up the title if it came from filename
 		if (!tags.title) {
@@ -56,15 +43,13 @@ for (const file of soundFiles) {
 				.replace(/\s+/g, " ") // Normalize multiple spaces
 				.trim();
 		}
-
 		sounds.push({
 			name: title,
 			artist: artist,
-			duration: duration,
 			mp3: `/sounds/${file}`,
 		});
 
-		console.log(`  ✅ Title: "${title}", Artist: "${artist}", Duration: ${duration}`);
+		console.log(`  ✅ Title: "${title}", Artist: "${artist}"`);
 	} catch (error) {
 		console.warn(`  ⚠️  Could not read ID3 tags for ${file}, using filename: ${error.message}`);
 
@@ -74,15 +59,13 @@ for (const file of soundFiles) {
 			.replace(/([a-z])([A-Z])/g, "$1 $2")
 			.replace(/\s+/g, " ")
 			.trim();
-
 		sounds.push({
 			name: displayName,
-			artist: "Unknown",
-			duration: "0:01",
+			artist: "",
 			mp3: `/sounds/${file}`,
 		});
 
-		console.log(`  📝 Fallback - Title: "${displayName}", Artist: "Unknown"`);
+		console.log(`  📝 Fallback - Title: "${displayName}", Artist: ""`);
 	}
 }
 
