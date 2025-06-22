@@ -1,0 +1,57 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 8-bit style soundboard icon - high resolution -->
+  <!-- Background with gradient -->
+  <rect width="512" height="512" fill="#2a1b3d"/>
+  <rect x="0" y="0" width="512" height="512" fill="url(#grad1)"/>
+  
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a1b3d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#44475a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Main soundboard body with 8-bit shadow -->
+  <rect x="64" y="96" width="384" height="320" fill="#44475a" stroke="#b3ffff" stroke-width="8"/>
+  <rect x="72" y="104" width="368" height="304" fill="none" stroke="#6272a4" stroke-width="4"/>
+  
+  <!-- Sound buttons (3x4 grid) with 8-bit style -->
+  <!-- Row 1 -->
+  <rect x="96" y="128" width="64" height="64" fill="#ffb3d9" stroke="#cc7da6" stroke-width="3"/>
+  <rect x="192" y="128" width="64" height="64" fill="#d9b3ff" stroke="#a67dcc" stroke-width="3"/>
+  <rect x="288" y="128" width="64" height="64" fill="#b3d9ff" stroke="#7da6cc" stroke-width="3"/>
+  <rect x="384" y="128" width="64" height="64" fill="#b3ffff" stroke="#7dcccc" stroke-width="3"/>
+  
+  <!-- Row 2 -->
+  <rect x="96" y="208" width="64" height="64" fill="#b3ffb3" stroke="#7dcc7d" stroke-width="3"/>
+  <rect x="192" y="208" width="64" height="64" fill="#ffffb3" stroke="#cccc7d" stroke-width="3"/>
+  <rect x="288" y="208" width="64" height="64" fill="#ffdb7d" stroke="#cca87d" stroke-width="3"/>
+  <rect x="384" y="208" width="64" height="64" fill="#ffb3b3" stroke="#cc7d7d" stroke-width="3"/>
+  
+  <!-- Row 3 -->
+  <rect x="96" y="288" width="64" height="64" fill="#ffb3d9" stroke="#cc7da6" stroke-width="3"/>
+  <rect x="192" y="288" width="64" height="64" fill="#b3ffff" stroke="#7dcccc" stroke-width="3"/>
+  <rect x="288" y="288" width="64" height="64" fill="#d9b3ff" stroke="#a67dcc" stroke-width="3"/>
+  <rect x="384" y="288" width="64" height="64" fill="#b3d9ff" stroke="#7da6cc" stroke-width="3"/>
+  
+  <!-- Speaker/Audio symbol in top corner -->
+  <rect x="400" y="48" width="64" height="32" fill="#b3ffff" stroke="#7dcccc" stroke-width="4"/>
+  <polygon points="464,48 512,24 512,104 464,80" fill="#b3ffff" stroke="#7dcccc" stroke-width="4"/>
+  
+  <!-- Sound waves -->
+  <path d="M 480 40 Q 500 60 480 80" stroke="#ffffb3" stroke-width="6" fill="none"/>
+  <path d="M 488 32 Q 520 60 488 88" stroke="#ffffb3" stroke-width="4" fill="none"/>
+  
+  <!-- Volume/equalizer bars at bottom -->
+  <rect x="96" y="432" width="16" height="32" fill="#b3ffff"/>
+  <rect x="128" y="424" width="16" height="40" fill="#b3ffb3"/>
+  <rect x="160" y="416" width="16" height="48" fill="#ffffb3"/>
+  <rect x="192" y="408" width="16" height="56" fill="#ffdb7d"/>
+  <rect x="224" y="400" width="16" height="64" fill="#ffb3d9"/>
+  <rect x="256" y="392" width="16" height="72" fill="#d9b3ff"/>
+  <rect x="288" y="400" width="16" height="64" fill="#ffb3b3"/>
+  <rect x="320" y="408" width="16" height="56" fill="#ffdb7d"/>
+  <rect x="352" y="416" width="16" height="48" fill="#ffffb3"/>
+  <rect x="384" y="424" width="16" height="40" fill="#b3ffb3"/>
+  <rect x="416" y="432" width="16" height="32" fill="#b3ffff"/>
+</svg>

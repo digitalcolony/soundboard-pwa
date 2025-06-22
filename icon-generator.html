@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Icon Generator for Soundboard PWA</title>
+		<style>
+			body {
+				font-family: monospace;
+				background: #2a1b3d;
+				color: #f8f8f2;
+				padding: 20px;
+				line-height: 1.6;
+			}
+			.container {
+				max-width: 800px;
+				margin: 0 auto;
+			}
+			h1 {
+				color: #b3ffff;
+				text-align: center;
+			}
+			.icon-preview {
+				display: flex;
+				gap: 20px;
+				flex-wrap: wrap;
+				margin: 20px 0;
+			}
+			.icon-item {
+				text-align: center;
+				background: #44475a;
+				padding: 10px;
+				border-radius: 8px;
+				border: 2px solid #b3ffff;
+			}
+			canvas {
+				border: 2px solid #6272a4;
+				display: block;
+				margin: 10px auto;
+			}
+			button {
+				background: #b3ffb3;
+				color: #2a1b3d;
+				border: 2px solid #7dcc7d;
+				padding: 10px 20px;
+				font-family: monospace;
+				font-weight: bold;
+				cursor: pointer;
+				margin: 5px;
+			}
+			button:hover {
+				background: #7dcc7d;
+			}
+			.instructions {
+				background: #44475a;
+				padding: 20px;
+				border: 2px solid #d9b3ff;
+				border-radius: 8px;
+				margin: 20px 0;
+			}
+			.download-links {
+				background: #44475a;
+				padding: 20px;
+				border: 2px solid #ffb3d9;
+				border-radius: 8px;
+				margin: 20px 0;
+			}
+			.download-links a {
+				color: #b3ffff;
+				text-decoration: none;
+				display: block;
+				margin: 5px 0;
+				padding: 5px;
+				background: #2a1b3d;
+				border: 1px solid #6272a4;
+			}
+			.download-links a:hover {
+				background: #6272a4;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>🎵 Soundboard PWA Icon Generator</h1>
+
+			<div class="instructions">
+				<h3>Instructions:</h3>
+				<ol>
+					<li>Click "Generate All Icons" to create PNG versions</li>
+					<li>Right-click each icon and "Save Image As..."</li>
+					<li>Save with the exact filename shown</li>
+					<li>Place in the public/icons/ directory</li>
+				</ol>
+			</div>
+
+			<button onclick="generateAllIcons()">🎨 Generate All Icons</button>
+			<button onclick="clearIcons()">🗑️ Clear Icons</button>
+
+			<div class="icon-preview" id="iconPreview"></div>
+
+			<div class="download-links" id="downloadLinks" style="display: none">
+				<h3>📥 Download Links (Right-click → Save As):</h3>
+				<div id="linksList"></div>
+			</div>
+		</div>
+
+		<script>
+			const iconSizes = [
+				{ size: 72, filename: "icon-72x72.png" },
+				{ size: 96, filename: "icon-96x96.png" },
+				{ size: 128, filename: "icon-128x128.png" },
+				{ size: 144, filename: "icon-144x144.png" },
+				{ size: 152, filename: "icon-152x152.png" },
+				{ size: 192, filename: "icon-192x192.png" },
+				{ size: 384, filename: "icon-384x384.png" },
+				{ size: 512, filename: "icon-512x512.png" },
+				{ size: 180, filename: "apple-touch-icon.png" },
+			];
+
+			function drawSoundboardIcon(canvas, size) {
+				const ctx = canvas.getContext("2d");
+				const scale = size / 512; // Base size is 512x512
+
+				// Clear canvas
+				ctx.clearRect(0, 0, size, size);
+
+				// Background
+				ctx.fillStyle = "#2a1b3d";
+				ctx.fillRect(0, 0, size, size);
+
+				// Main soundboard body
+				ctx.fillStyle = "#44475a";
+				ctx.fillRect(64 * scale, 96 * scale, 384 * scale, 320 * scale);
+
+				// Border
+				ctx.strokeStyle = "#b3ffff";
+				ctx.lineWidth = 8 * scale;
+				ctx.strokeRect(64 * scale, 96 * scale, 384 * scale, 320 * scale);
+
+				// Sound buttons colors
+				const buttonColors = [
+					// Row 1
+					["#ffb3d9", "#d9b3ff", "#b3d9ff", "#b3ffff"],
+					// Row 2
+					["#b3ffb3", "#ffffb3", "#ffdb7d", "#ffb3b3"],
+					// Row 3
+					["#ffb3d9", "#b3ffff", "#d9b3ff", "#b3d9ff"],
+				];
+
+				// Draw sound buttons (3x4 grid)
+				for (let row = 0; row < 3; row++) {
+					for (let col = 0; col < 4; col++) {
+						const x = (96 + col * 96) * scale;
+						const y = (128 + row * 80) * scale;
+						const buttonSize = 64 * scale;
+
+						ctx.fillStyle = buttonColors[row][col];
+						ctx.fillRect(x, y, buttonSize, buttonSize);
+
+						// Button border
+						ctx.strokeStyle = "#6272a4";
+						ctx.lineWidth = 3 * scale;
+						ctx.strokeRect(x, y, buttonSize, buttonSize);
+					}
+				}
+
+				// Speaker icon in corner
+				ctx.fillStyle = "#b3ffff";
+				ctx.fillRect(400 * scale, 48 * scale, 64 * scale, 32 * scale);
+
+				// Speaker cone
+				ctx.beginPath();
+				ctx.moveTo(464 * scale, 48 * scale);
+				ctx.lineTo(500 * scale, 32 * scale);
+				ctx.lineTo(500 * scale, 96 * scale);
+				ctx.lineTo(464 * scale, 80 * scale);
+				ctx.closePath();
+				ctx.fill();
+
+				// Sound waves
+				ctx.strokeStyle = "#ffffb3";
+				ctx.lineWidth = 4 * scale;
+				ctx.beginPath();
+				ctx.arc(480 * scale, 64 * scale, 20 * scale, -Math.PI / 4, Math.PI / 4, false);
+				ctx.stroke();
+
+				ctx.beginPath();
+				ctx.arc(480 * scale, 64 * scale, 35 * scale, -Math.PI / 3, Math.PI / 3, false);
+				ctx.stroke();
+
+				// Equalizer bars at bottom
+				const barColors = [
+					"#b3ffff",
+					"#b3ffb3",
+					"#ffffb3",
+					"#ffdb7d",
+					"#ffb3d9",
+					"#d9b3ff",
+					"#ffb3b3",
+					"#ffdb7d",
+					"#ffffb3",
+					"#b3ffb3",
+					"#b3ffff",
+				];
+				const barHeights = [32, 40, 48, 56, 64, 72, 64, 56, 48, 40, 32];
+
+				for (let i = 0; i < 11; i++) {
+					const x = (96 + i * 32) * scale;
+					const height = barHeights[i] * scale;
+					const y = (464 - height) * scale;
+
+					ctx.fillStyle = barColors[i];
+					ctx.fillRect(x, y, 16 * scale, height);
+				}
+			}
+
+			function generateAllIcons() {
+				const preview = document.getElementById("iconPreview");
+				const downloadLinks = document.getElementById("downloadLinks");
+				const linksList = document.getElementById("linksList");
+
+				preview.innerHTML = "";
+				linksList.innerHTML = "";
+
+				iconSizes.forEach((iconInfo) => {
+					const iconItem = document.createElement("div");
+					iconItem.className = "icon-item";
+
+					const canvas = document.createElement("canvas");
+					canvas.width = iconInfo.size;
+					canvas.height = iconInfo.size;
+
+					drawSoundboardIcon(canvas, iconInfo.size);
+
+					const label = document.createElement("div");
+					label.textContent = `${iconInfo.size}x${iconInfo.size}`;
+					label.style.color = "#b3ffff";
+					label.style.fontWeight = "bold";
+
+					const filename = document.createElement("div");
+					filename.textContent = iconInfo.filename;
+					filename.style.color = "#d9b3ff";
+					filename.style.fontSize = "0.8em";
+
+					iconItem.appendChild(label);
+					iconItem.appendChild(canvas);
+					iconItem.appendChild(filename);
+
+					preview.appendChild(iconItem);
+
+					// Create download link
+					canvas.toBlob((blob) => {
+						const url = URL.createObjectURL(blob);
+						const link = document.createElement("a");
+						link.href = url;
+						link.download = iconInfo.filename;
+						link.textContent = `📥 ${iconInfo.filename}`;
+						linksList.appendChild(link);
+					});
+				});
+
+				downloadLinks.style.display = "block";
+			}
+
+			function clearIcons() {
+				document.getElementById("iconPreview").innerHTML = "";
+				document.getElementById("downloadLinks").style.display = "none";
+			}
+		</script>
+	</body>
+</html>

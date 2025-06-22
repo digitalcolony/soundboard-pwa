@@ -178,11 +178,36 @@ This will:
 
 ### Step 5: Replace Icons (Optional)
 
+The soundboard comes with generic retro-themed icons that match the 8-bit aesthetic. To customize:
+
+#### Option 1: Use the Built-in Icon Generator
+
+```bash
+npm run generate-icons
+```
+
+This opens `icon-generator.html` in your browser where you can:
+
+- Preview all icon sizes
+- Download PNG files with correct names
+- Customize colors by editing the HTML/Canvas code
+
+#### Option 2: Create Your Own Icons
+
 Replace the icons in `public/icons/` with your own:
 
-- Use the same filenames and sizes
-- Recommended: 512x512 source image, scale down for other sizes
-- PNG format with transparent background
+- Use the same filenames and sizes (72x72, 96x96, 128x128, 144x144, 152x152, 192x192, 384x384, 512x512)
+- PNG format recommended for best compatibility
+- Start with a 512x512 source image, scale down for other sizes
+- Include `apple-touch-icon.png` (180x180) for iOS
+
+#### Option 3: Edit the Source SVG
+
+Modify `icon-source.svg` and regenerate:
+
+- Edit colors, shapes, or design elements
+- Use the generation scripts (`generate-icons.sh` or `generate-icons.bat`)
+- Requires ImageMagick or online conversion tools
 
 ### Step 6: Deploy
 

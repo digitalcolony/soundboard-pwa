@@ -10,6 +10,7 @@
         "preview": "vite preview",
         "setup": "node sync-data.js",
         "generate-sounds": "node generate-sounds.js",
+        "generate-icons": "start icon-generator.html",
         "dev:setup": "npm run setup && npm run dev",
         "build:setup": "npm run setup && npm run build"
     },
