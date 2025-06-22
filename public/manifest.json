@@ -1,5 +1,5 @@
 {
-    "name": "Soundboard PWA",
+    "name": "The Neil Rogers Soundboard",
     "short_name": "Soundboard",
     "description": "A Progressive Web App soundboard that works offline and can be installed as a standalone app.",
     "start_url": "/",

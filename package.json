@@ -1,9 +1,29 @@
 {
-    "name": "neil-rogers-soundboard-pwa",
+    "name": "pwa-soundboard",
     "version": "1.0.0",
     "type": "module",
-    "description": "Neil Rogers Soundboard Progressive Web App",
+    "description": "A fully configurable Progressive Web App soundboard - open source and free for all to use and modify",
     "main": "index.html",
+    "license": "MIT",
+    "author": "Soundboard PWA Contributors",
+    "keywords": [
+        "soundboard",
+        "pwa",
+        "progressive-web-app",
+        "offline",
+        "audio",
+        "open-source",
+        "configurable",
+        "customizable"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/your-username/pwa-soundboard.git"
+    },
+    "bugs": {
+        "url": "https://github.com/your-username/pwa-soundboard/issues"
+    },
+    "homepage": "https://github.com/your-username/pwa-soundboard#readme",
     "scripts": {
         "dev": "vite",
         "build": "vite build",

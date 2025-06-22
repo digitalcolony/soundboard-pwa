@@ -1,16 +1,28 @@
 # PWA Soundboard
 
-A Progressive Web App (PWA) soundboard that works offline and can be installed as a standalone app.
+A fully generic, configurable Progressive Web App (PWA) soundboard that works offline and can be installed as a standalone app. **This project is open source and free for everyone to use, modify, and customize for any purpose.**
+
+## 🎯 Open Source & Free to Use
+
+This soundboard is designed to be **completely generic and easily customizable** for any use case:
+
+- ✅ **Free to use** for personal, commercial, or any other purpose
+- ✅ **Easy to customize** with JSON configuration files
+- ✅ **No hardcoded content** - bring your own audio files and branding
+- ✅ **MIT Licensed** - modify, distribute, and use however you want
+
+**Perfect for**: Podcast soundboards, radio show drops, gaming sounds, meme collections, educational audio, language learning, accessibility tools, or any audio collection you want to make easily accessible.
 
 ## Features
 
 - 🔊 **Offline-capable**: All sounds are cached for offline use
 - 📱 **Installable**: Can be installed as a standalone app on mobile and desktop
 - 🔄 **Auto-updating**: Automatically checks for new sounds when online
-- 🎵 **Full soundboard**: Includes all drops from Neil Rogers, Jennifer Rehm, Jim Mandich, Larry King, and more
+- 🎵 **Fully configurable**: No hardcoded content - completely customizable via JSON
 - 🔍 **Search functionality**: Search sounds by name or artist
-- 📋 **Multiple actions**: Play, download, or copy links to clipboard
 - ⌨️ **Keyboard shortcuts**: Press 'S' to focus search box
+- 🎨 **Easy theming**: Custom colors, text, and branding via config file
+- 🔧 **Automatic metadata**: Generates sound data from MP3 ID3 tags
 
 ## Installation
 
@@ -34,13 +46,15 @@ A Progressive Web App (PWA) soundboard that works offline and can be installed a
    npm run generate-sounds
    ```
 
-3. (Optional) Customize the soundboard by editing `public/config.json`:
+3. (Optional) Customize the soundboard by editing the config files:
 
    ```bash
    # Copy the example config
    cp config.example.json public/config.json
-   # Edit the configuration file
+   # Edit the configuration file for UI/branding
    nano public/config.json
+   # Edit the PWA manifest for app name/installation details
+   nano public/manifest.json
    ```
 
 4. Start development server:
@@ -86,15 +100,26 @@ The soundboard can be customized by editing the `public/config.json` file. This 
 ### What gets updated:
 
 - **Page title** and meta description for SEO
-- **PWA manifest** (app name, description, colors)
+- **PWA manifest** (app name, description, colors) - _Note: The manifest requires separate editing_
 - **All UI text** throughout the application
 - **Theme colors** for the app and browser chrome
 
-Simply edit the config file and refresh the page to see your changes!
+**Important:** The `public/config.json` file controls the UI and branding, but you'll also need to update `public/manifest.json` separately to customize the PWA installation name and app store details.
+
+Simply edit both config files and refresh the page to see your changes!
 
 ## Creating Your Own Soundboard
 
-This PWA is designed to be easily customizable for any type of soundboard. Here's how to create your own:
+This PWA is **designed from the ground up** to be easily customizable for any type of soundboard. **No programming knowledge required** - just edit a few files and you're ready to go!
+
+### Why Use This Soundboard?
+
+- 🚀 **Zero dependencies on external services** - runs completely offline
+- 📦 **One-time setup** - configure once, works everywhere
+- 🎯 **Production-ready** - used by real websites and apps
+- 🔒 **Privacy-focused** - no tracking, no data collection
+- 💰 **Completely free** - no licenses, subscriptions, or hidden costs
+- 🌍 **Works anywhere** - any web server, any domain, any device
 
 ### Step 1: Update ID3 Tags (Recommended)
 
@@ -170,11 +195,33 @@ This will:
 
 ### Step 4: Customize the Branding
 
-1. Copy the example config: `cp config.example.json public/config.json`
-2. Edit `public/config.json` with your details:
+1. **Update the main config**: Copy the example config: `cp config.example.json public/config.json`
+2. **Edit `public/config.json`** with your details:
+
    - Change the title, subtitle, and description
    - Update colors to match your brand
    - Customize all UI text
+
+3. **Update the PWA manifest** in `public/manifest.json`:
+
+   ```json
+   {
+   	"name": "Your Soundboard Name",
+   	"short_name": "Your App",
+   	"description": "Your custom soundboard description",
+   	"background_color": "#your-color",
+   	"theme_color": "#your-color"
+   }
+   ```
+
+   **Important manifest fields to customize:**
+
+   - `name`: Full app name (appears in app stores and installation prompts)
+   - `short_name`: Shorter name (appears on home screen/desktop)
+   - `description`: Brief description of your soundboard
+   - `background_color`: Background color for splash screen
+   - `theme_color`: Browser chrome color on mobile devices
+   - `categories`: Update to match your content (e.g., "education", "games", "productivity")
 
 ### Step 5: Replace Icons (Optional)
 
@@ -297,4 +344,14 @@ Make sure to:
 
 ## License
 
-Same as the main Neil Rogers site.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+**You are free to:**
+
+- ✅ Use this project for any purpose (personal, commercial, educational, etc.)
+- ✅ Modify and customize it however you want
+- ✅ Distribute your modified versions
+- ✅ Include it in other projects
+- ✅ Sell products based on this code
+
+**The only requirement** is to include the original MIT license notice in any copies or substantial portions of the software.
