@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
+import NodeID3 from "node-id3";
 
-console.log("🎵 Generating sounds.json from existing sound files...");
+console.log("🎵 Generating sounds.json from MP3 files with ID3 tag reading...");
 
 const soundsDir = "public/sounds";
 const outputFile = "public/api/sounds.json";
@@ -19,23 +20,71 @@ const soundFiles = fs
 
 console.log(`📁 Found ${soundFiles.length} sound files`);
 
-// Generate sound data from filenames
-const sounds = soundFiles.map((file) => {
-	const nameWithoutExt = path.basename(file, ".mp3");
-	// Convert filename to display name (replace hyphens/underscores with spaces)
-	const displayName = nameWithoutExt
-		.replace(/[-_]/g, " ")
-		.replace(/([a-z])([A-Z])/g, "$1 $2") // Add space before caps
-		.replace(/\s+/g, " ") // Normalize multiple spaces
-		.trim();
+// Generate sound data from MP3 files with ID3 tag reading
+const sounds = [];
 
-	return {
-		name: displayName,
-		artist: "Unknown", // Default artist - can be manually updated in the JSON file
-		duration: "0:01", // Default duration - could be enhanced to read actual duration
-		mp3: `/sounds/${file}`,
-	};
-});
+for (const file of soundFiles) {
+	const filePath = path.join(soundsDir, file);
+	const nameWithoutExt = path.basename(file, ".mp3");
+
+	console.log(`📖 Reading ID3 tags for: ${file}`);
+
+	try {
+		// Read ID3 tags from the MP3 file
+		const tags = NodeID3.read(filePath);
+
+		// Extract information from ID3 tags with fallbacks
+		let title = tags.title || nameWithoutExt.replace(/[-_]/g, " ").trim();
+		let artist = tags.artist || "Unknown";
+		let duration = "0:01"; // Default duration
+
+		// If we have raw duration data, format it
+		if (tags.raw && tags.raw.TLEN) {
+			// TLEN is in milliseconds
+			const milliseconds = parseInt(tags.raw.TLEN);
+			const seconds = Math.floor(milliseconds / 1000);
+			const minutes = Math.floor(seconds / 60);
+			const remainingSeconds = seconds % 60;
+			duration = `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+		}
+
+		// Clean up the title if it came from filename
+		if (!tags.title) {
+			title = nameWithoutExt
+				.replace(/[-_]/g, " ")
+				.replace(/([a-z])([A-Z])/g, "$1 $2") // Add space before caps
+				.replace(/\s+/g, " ") // Normalize multiple spaces
+				.trim();
+		}
+
+		sounds.push({
+			name: title,
+			artist: artist,
+			duration: duration,
+			mp3: `/sounds/${file}`,
+		});
+
+		console.log(`  ✅ Title: "${title}", Artist: "${artist}", Duration: ${duration}`);
+	} catch (error) {
+		console.warn(`  ⚠️  Could not read ID3 tags for ${file}, using filename: ${error.message}`);
+
+		// Fallback to filename parsing if ID3 reading fails
+		const displayName = nameWithoutExt
+			.replace(/[-_]/g, " ")
+			.replace(/([a-z])([A-Z])/g, "$1 $2")
+			.replace(/\s+/g, " ")
+			.trim();
+
+		sounds.push({
+			name: displayName,
+			artist: "Unknown",
+			duration: "0:01",
+			mp3: `/sounds/${file}`,
+		});
+
+		console.log(`  📝 Fallback - Title: "${displayName}", Artist: "Unknown"`);
+	}
+}
 
 // Create the sounds data structure
 const soundsData = {
