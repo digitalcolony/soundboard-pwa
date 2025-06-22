@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>API Test</title>
+	</head>
+	<body>
+		<h1>API Test</h1>
+		<div id="result"></div>
+		<script>
+			async function testAPI() {
+				const urls = ["/api/sounds.json"];
+				const result = document.getElementById("result");
+
+				for (const url of urls) {
+					try {
+						console.log(`Testing ${url}...`);
+						const response = await fetch(url);
+						console.log(`Response from ${url}:`, response.status, response.ok);
+
+						if (response.ok) {
+							const data = await response.json();
+							result.innerHTML += `<p>✅ ${url}: ${
+								data.files?.length || "No files property"
+							} sounds</p>`;
+							console.log(`Data from ${url}:`, data);
+						} else {
+							result.innerHTML += `<p>❌ ${url}: ${response.status} ${response.statusText}</p>`;
+						}
+					} catch (error) {
+						result.innerHTML += `<p>💥 ${url}: ${error.message}</p>`;
+						console.error(`Error with ${url}:`, error);
+					}
+				}
+			}
+
+			testAPI();
+		</script>
+	</body>
+</html>

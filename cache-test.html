@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cache Test</title>
+	</head>
+	<body>
+		<h1>Service Worker Cache Test</h1>
+		<button id="testCache">Test Audio Caching</button>
+		<button id="checkCache">Check Cache</button>
+		<button id="clearCache">Clear Cache</button>
+		<div id="results"></div>
+
+		<script>
+			const results = document.getElementById("results");
+
+			// Register service worker
+			if ("serviceWorker" in navigator) {
+				navigator.serviceWorker
+					.register("/sw.js")
+					.then((registration) => {
+						console.log("SW registered:", registration);
+						results.innerHTML += "<p>✅ Service Worker registered</p>";
+					})
+					.catch((error) => {
+						console.error("SW registration failed:", error);
+						results.innerHTML += "<p>❌ Service Worker registration failed</p>";
+					});
+			}
+
+			document.getElementById("testCache").addEventListener("click", async () => {
+				try {
+					const audioUrl = "/sounds/1-to-12-hour.mp3";
+					console.log("Testing audio cache for:", audioUrl);
+
+					const response = await fetch(audioUrl);
+					console.log("Fetch response:", response.status, response.ok);
+
+					if (response.ok) {
+						results.innerHTML += `<p>✅ Successfully fetched ${audioUrl}</p>`;
+
+						// Try to play it
+						const audio = new Audio(audioUrl);
+						audio
+							.play()
+							.then(() => {
+								results.innerHTML += "<p>🎵 Audio played successfully</p>";
+							})
+							.catch((err) => {
+								results.innerHTML += `<p>❌ Audio play failed: ${err.message}</p>`;
+							});
+					} else {
+						results.innerHTML += `<p>❌ Failed to fetch ${audioUrl}: ${response.status}</p>`;
+					}
+				} catch (error) {
+					console.error("Test failed:", error);
+					results.innerHTML += `<p>💥 Test failed: ${error.message}</p>`;
+				}
+			});
+			document.getElementById("checkCache").addEventListener("click", async () => {
+				try {
+					const cache = await caches.open("neil-rogers-sounds-v2");
+					const keys = await cache.keys();
+					console.log("Cached audio files:", keys);
+
+					results.innerHTML += `<p>📦 Cache contains ${keys.length} files:</p>`;
+					keys.forEach((request) => {
+						results.innerHTML += `<p>- ${request.url}</p>`;
+					});
+				} catch (error) {
+					results.innerHTML += `<p>❌ Failed to check cache: ${error.message}</p>`;
+				}
+			});
+			document.getElementById("clearCache").addEventListener("click", async () => {
+				try {
+					await caches.delete("neil-rogers-sounds-v2");
+					results.innerHTML += "<p>🗑️ Cache cleared</p>";
+				} catch (error) {
+					results.innerHTML += `<p>❌ Failed to clear cache: ${error.message}</p>`;
+				}
+			});
+		</script>
+	</body>
+</html>

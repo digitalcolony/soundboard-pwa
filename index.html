@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>🔊 Neil Rogers Soundboard</title>
+		<meta
+			name="description"
+			content="Offline Neil Rogers Soundboard - Play drops from Neil Rogers, Jennifer Rehm, Jim Mandich, Larry King, and more!"
+		/>
+
+		<!-- PWA Manifest -->
+		<link rel="manifest" href="/manifest.json" />
+
+		<!-- Theme color -->
+		<meta name="theme-color" content="#1a1a1a" />
+
+		<!-- Apple PWA meta tags -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="apple-mobile-web-app-title" content="Neil Rogers Soundboard" />
+
+		<!-- Icons -->
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+		<!-- 8-bit pixel font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+			rel="stylesheet"
+		/>
+
+		<style>
+			:root {
+				/* Pastel 8-bit color palette */
+				--pastel-pink: #ffb3d9;
+				--pastel-purple: #d9b3ff;
+				--pastel-blue: #b3d9ff;
+				--pastel-cyan: #b3ffff;
+				--pastel-green: #b3ffb3;
+				--pastel-yellow: #ffffb3;
+				--pastel-orange: #ffdb7d;
+				--pastel-coral: #ffb3b3;
+
+				/* Dark pastel variations */
+				--dark-pink: #cc7da6;
+				--dark-purple: #a67dcc;
+				--dark-blue: #7da6cc;
+				--dark-cyan: #7dcccc;
+				--dark-green: #7dcc7d;
+				--dark-yellow: #cccc7d;
+				--dark-orange: #cca87d;
+				--dark-coral: #cc7d7d;
+
+				/* Background colors */
+				--bg-primary: #2a1b3d;
+				--bg-secondary: #44475a;
+				--bg-tertiary: #282a36;
+
+				/* Text colors */
+				--text-primary: #f8f8f2;
+				--text-secondary: #6272a4;
+				--text-accent: var(--pastel-cyan);
+			}
+
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				font-family: "Press Start 2P", "Courier New", monospace;
+				background: var(--bg-primary);
+				color: var(--text-primary);
+				min-height: 100vh;
+				padding: 16px;
+				line-height: 1.8;
+				image-rendering: pixelated;
+				/* Improve text rendering */
+				-webkit-font-smoothing: none;
+				-moz-osx-font-smoothing: unset;
+				text-rendering: optimizeSpeed;
+				/* Add retro scanlines effect */
+				background-image: repeating-linear-gradient(
+					0deg,
+					transparent,
+					transparent 2px,
+					rgba(255, 255, 255, 0.02) 2px,
+					rgba(255, 255, 255, 0.02) 4px
+				);
+			}
+
+			.header {
+				text-align: center;
+				padding: 20px 0;
+				border-bottom: 4px solid var(--pastel-purple);
+				margin-bottom: 20px;
+				background: var(--bg-secondary);
+				border: 4px solid var(--pastel-pink);
+				border-radius: 0;
+				/* 8-bit shadow effect */
+				box-shadow: 4px 4px 0px var(--dark-pink), 8px 8px 0px var(--dark-purple);
+				position: relative;
+			}
+
+			.header::before {
+				content: "";
+				position: absolute;
+				top: -2px;
+				left: -2px;
+				right: -2px;
+				bottom: -2px;
+				background: linear-gradient(45deg, var(--pastel-cyan), var(--pastel-yellow));
+				z-index: -1;
+				border-radius: 0;
+			}
+			.header h1 {
+				font-size: 1.8rem;
+				margin-bottom: 12px;
+				color: var(--pastel-cyan);
+				text-shadow: 2px 2px 0px var(--dark-cyan), 4px 4px 0px var(--bg-primary),
+					1px 1px 0px rgba(0, 0, 0, 0.8);
+				letter-spacing: 1px;
+			}
+
+			.header .subtitle {
+				color: var(--pastel-yellow);
+				font-size: 0.8rem;
+				text-shadow: 1px 1px 0px var(--dark-yellow), 2px 2px 0px rgba(0, 0, 0, 0.8);
+			}
+
+			.controls {
+				background: var(--bg-secondary);
+				border: 4px solid var(--pastel-green);
+				padding: 20px;
+				margin-bottom: 20px;
+				box-shadow: 4px 4px 0px var(--dark-green), 8px 8px 0px var(--bg-primary);
+				position: relative;
+			}
+
+			.controls::after {
+				content: "";
+				position: absolute;
+				top: 8px;
+				left: 8px;
+				right: 8px;
+				bottom: 8px;
+				border: 2px solid var(--pastel-cyan);
+				pointer-events: none;
+			}
+
+			.search-container {
+				margin-bottom: 16px;
+			}
+			.search-input {
+				width: 100%;
+				padding: 14px 18px;
+				font-size: 0.9rem;
+				font-family: "Press Start 2P", monospace;
+				border: 3px solid var(--pastel-blue);
+				background: var(--bg-tertiary);
+				color: var(--text-primary);
+				box-shadow: inset 2px 2px 0px var(--bg-primary), 2px 2px 0px var(--dark-blue);
+				outline: none;
+				transition: none;
+				line-height: 1.4;
+			}
+
+			.search-input::placeholder {
+				color: var(--text-secondary);
+			}
+
+			.search-input:focus {
+				border-color: var(--pastel-cyan);
+				box-shadow: inset 2px 2px 0px var(--bg-primary), 2px 2px 0px var(--dark-cyan),
+					0 0 0 2px var(--pastel-yellow);
+			}
+			.tip {
+				font-size: 0.7rem;
+				color: var(--pastel-orange);
+				text-shadow: 1px 1px 0px var(--dark-orange), 2px 2px 0px rgba(0, 0, 0, 0.8);
+				text-align: center;
+				line-height: 1.6;
+			}
+
+			.sounds-container {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 16px;
+				margin-top: 20px;
+			}
+			.sound-button {
+				padding: 18px;
+				border: 3px solid var(--pastel-coral);
+				background: var(--bg-secondary);
+				color: var(--text-primary);
+				cursor: pointer;
+				text-align: left;
+				font-size: 0.8rem;
+				font-family: "Press Start 2P", monospace;
+				line-height: 1.8;
+				position: relative;
+				transition: none;
+				box-shadow: 3px 3px 0px var(--dark-coral), 6px 6px 0px var(--bg-primary);
+			}
+
+			.sound-button:hover {
+				background: var(--pastel-coral);
+				color: var(--bg-primary);
+				border-color: var(--pastel-yellow);
+				box-shadow: 3px 3px 0px var(--dark-yellow), 6px 6px 0px var(--bg-primary),
+					9px 9px 0px var(--dark-coral);
+				transform: translate(-2px, -2px);
+			}
+
+			.sound-button:active {
+				transform: translate(2px, 2px);
+				box-shadow: 1px 1px 0px var(--dark-coral), 2px 2px 0px var(--bg-primary);
+			}
+			.sound-button::before {
+				content: "♪";
+				position: absolute;
+				top: 8px;
+				right: 8px;
+				color: var(--pastel-green);
+				font-size: 0.8rem;
+			}
+			.sound-button.cached::after {
+				content: "💾";
+				position: absolute;
+				bottom: 8px;
+				right: 8px;
+				color: var(--pastel-green);
+				font-size: 0.7rem;
+				text-shadow: 1px 1px 0px var(--dark-green), 2px 2px 0px rgba(0, 0, 0, 0.8);
+			}
+			.sound-name {
+				font-weight: normal;
+				margin-bottom: 10px;
+				color: var(--pastel-cyan);
+				text-shadow: 1px 1px 0px var(--dark-cyan), 2px 2px 0px rgba(0, 0, 0, 0.8);
+				font-size: 0.8rem;
+			}
+
+			.sound-artist {
+				font-size: 0.65rem;
+				color: var(--pastel-purple);
+				text-shadow: 1px 1px 0px var(--dark-purple), 2px 2px 0px rgba(0, 0, 0, 0.8);
+				line-height: 1.4;
+			}
+
+			.status {
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				padding: 14px 18px;
+				background: var(--bg-secondary);
+				color: var(--text-primary);
+				font-size: 0.75rem;
+				font-family: "Press Start 2P", monospace;
+				z-index: 1000;
+				opacity: 0;
+				transition: opacity 0.3s ease;
+				border: 3px solid var(--pastel-blue);
+				box-shadow: 3px 3px 0px var(--dark-blue), 6px 6px 0px var(--bg-primary);
+				line-height: 1.6;
+			}
+
+			.status.show {
+				opacity: 1;
+			}
+
+			.status.success {
+				border-color: var(--pastel-green);
+				box-shadow: 3px 3px 0px var(--dark-green), 6px 6px 0px var(--bg-primary);
+			}
+
+			.status.error {
+				border-color: var(--pastel-coral);
+				box-shadow: 3px 3px 0px var(--dark-coral), 6px 6px 0px var(--bg-primary);
+			}
+
+			.loading {
+				text-align: center;
+				padding: 40px;
+				color: var(--pastel-purple);
+				font-size: 0.9rem;
+				text-shadow: 1px 1px 0px var(--dark-purple), 2px 2px 0px rgba(0, 0, 0, 0.8);
+				line-height: 1.6;
+			}
+
+			.loading::before {
+				content: "⟡ ";
+				animation: pixel-spin 1s steps(4) infinite;
+			}
+
+			@keyframes pixel-spin {
+				0% {
+					content: "⟡ ";
+				}
+				25% {
+					content: "⟢ ";
+				}
+				50% {
+					content: "⟣ ";
+				}
+				75% {
+					content: "⟤ ";
+				}
+			}
+			.offline-indicator {
+				position: fixed;
+				bottom: 20px;
+				left: 20px;
+				background: var(--bg-secondary);
+				color: var(--text-primary);
+				padding: 14px 18px;
+				font-size: 0.75rem;
+				font-family: "Press Start 2P", monospace;
+				z-index: 1000;
+				display: none;
+				border: 3px solid var(--pastel-orange);
+				box-shadow: 3px 3px 0px var(--dark-orange), 6px 6px 0px var(--bg-primary);
+				line-height: 1.6;
+			}
+
+			.offline-indicator.show {
+				display: block;
+			}
+
+			.offline-indicator::before {
+				content: "📡 ";
+				color: var(--pastel-orange);
+			}
+			@media (max-width: 768px) {
+				.sounds-container {
+					grid-template-columns: 1fr;
+				}
+
+				.header h1 {
+					font-size: 1.4rem;
+					letter-spacing: 0px;
+				}
+
+				.header .subtitle {
+					font-size: 0.7rem;
+				}
+
+				.sound-button {
+					font-size: 0.7rem;
+					padding: 16px;
+				}
+
+				.sound-name {
+					font-size: 0.7rem;
+				}
+
+				.sound-artist {
+					font-size: 0.6rem;
+				}
+
+				.search-input {
+					font-size: 0.8rem;
+				}
+
+				.tip {
+					font-size: 0.6rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<h1>♫ NEIL ROGERS SOUNDBOARD ♫</h1>
+			<p class="subtitle">NEILROGERS.ORG • <span id="sound-count">0</span> AUDIO DROPS</p>
+		</div>
+
+		<div class="controls">
+			<div class="search-container">
+				<input
+					type="search"
+					id="search-input"
+					class="search-input"
+					placeholder="SEARCH FOR SOUNDS..."
+					autocomplete="off"
+				/>
+			</div>
+			<div class="tip">↑ PRESS [S] TO SEARCH • CLICK TO PLAY ↑</div>
+		</div>
+
+		<div id="sounds-container" class="sounds-container">
+			<div class="loading">LOADING SOUNDS...</div>
+		</div>
+
+		<div id="status" class="status"></div>
+		<div id="offline-indicator" class="offline-indicator">OFFLINE MODE - USING CACHED SOUNDS</div>
+
+		<script type="module" src="/main.js"></script>
+	</body>
+</html>
