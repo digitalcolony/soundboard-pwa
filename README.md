@@ -223,7 +223,51 @@ This will:
    - `theme_color`: Browser chrome color on mobile devices
    - `categories`: Update to match your content (e.g., "education", "games", "productivity")
 
-### Step 5: Replace Icons (Optional)
+4. **Update social media sharing meta tags** in `index.html`:
+
+   Replace these placeholders with your actual information:
+
+   ```html
+   <!-- Update these URLs to your actual domain -->
+   <meta property="og:url" content="https://yoursite.com/" />
+   <meta property="twitter:url" content="https://yoursite.com/" />
+
+   <!-- Update titles and descriptions -->
+   <meta property="og:title" content="Your Soundboard Name" />
+   <meta property="twitter:title" content="Your Soundboard Name" />
+   <meta property="og:description" content="Your custom description" />
+   <meta property="twitter:description" content="Your custom description" />
+
+   <!-- Update image URLs (use full URLs for social media) -->
+   <meta property="og:image" content="https://yoursite.com/icons/icon-512x512.png" />
+   <meta property="twitter:image" content="https://yoursite.com/icons/icon-512x512.png" />
+
+   <!-- Update site/brand name -->
+   <meta property="og:site_name" content="Your Soundboard" />
+   ```
+
+   **Why this matters:** These tags control how your soundboard appears when shared on Facebook, Twitter, LinkedIn, Discord, and other social platforms.
+
+5. **Update footer links** in `index.html`:
+
+   Replace the GitHub repository URLs with your own:
+
+   ```html
+   <!-- Update these GitHub links to point to your repository -->
+   <a href="https://github.com/your-username/your-soundboard" class="footer-link">
+   	📂 SOURCE CODE
+   </a>
+   <a href="https://github.com/your-username/your-soundboard#readme" class="footer-link">
+   	📖 DOCUMENTATION
+   </a>
+   <a href="https://github.com/your-username/your-soundboard/issues" class="footer-link">
+   	🐛 REPORT ISSUE
+   </a>
+   ```
+
+   Or customize the footer content entirely to match your branding and remove the open source references if desired.
+
+### Step 6: Replace Icons (Optional)
 
 The soundboard comes with generic retro-themed icons that match the 8-bit aesthetic. To customize:
 
@@ -256,7 +300,7 @@ Modify `icon-source.svg` and regenerate:
 - Use the generation scripts (`generate-icons.sh` or `generate-icons.bat`)
 - Requires ImageMagick or online conversion tools
 
-### Step 6: Deploy
+### Step 7: Deploy
 
 The app works on any static hosting service (Netlify, Vercel, GitHub Pages, etc.)
 
