@@ -3,11 +3,49 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>🔊 Neil Rogers Soundboard</title>
+		<title>🔊 Soundboard PWA</title>
 		<meta
 			name="description"
-			content="Offline Neil Rogers Soundboard - Play drops from Neil Rogers, Jennifer Rehm, Jim Mandich, Larry King, and more!"
+			content="A Progressive Web App soundboard that works offline and can be installed as a standalone app."
 		/>
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://app.neilrogers.org/" />
+		<meta property="og:title" content="🔊 Soundboard PWA" />
+		<meta
+			property="og:description"
+			content="A Progressive Web App soundboard that works offline and can be installed as a standalone app."
+		/>
+		<meta property="og:image" content="https://app.neilrogers.org/icons/icon-512x512.png" />
+		<meta property="og:image:width" content="512" />
+		<meta property="og:image:height" content="512" />
+		<meta property="og:image:alt" content="Soundboard PWA Icon" />
+		<meta property="og:site_name" content="Soundboard PWA" />
+		<meta property="og:locale" content="en_US" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content="https://app.neilrogers.org/" />
+		<meta property="twitter:title" content="🔊 Soundboard PWA" />
+		<meta
+			property="twitter:description"
+			content="A Progressive Web App soundboard that works offline and can be installed as a standalone app."
+		/>
+		<meta property="twitter:image" content="https://app.neilrogers.org/icons/icon-512x512.png" />
+		<meta
+			property="twitter:image:alt"
+			content="Soundboard PWA - Offline capable audio soundboard"
+		/>
+
+		<!-- Additional Social Media Meta -->
+		<meta name="author" content="Soundboard PWA" />
+		<meta
+			name="keywords"
+			content="soundboard, audio, pwa, progressive web app, offline, installable, sounds"
+		/>
+		<meta name="robots" content="index, follow" />
+		<meta name="language" content="English" />
 
 		<!-- PWA Manifest -->
 		<link rel="manifest" href="/manifest.json" />
@@ -18,8 +56,7 @@
 		<!-- Apple PWA meta tags -->
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-		<meta name="apple-mobile-web-app-title" content="Neil Rogers Soundboard" />
-
+		<meta name="apple-mobile-web-app-title" content="Soundboard PWA" />
 		<!-- Icons -->
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -90,6 +127,13 @@
 					rgba(255, 255, 255, 0.02) 2px,
 					rgba(255, 255, 255, 0.02) 4px
 				);
+				/* Flexbox to push footer to bottom */
+				display: flex;
+				flex-direction: column;
+			}
+
+			.main-content {
+				flex: 1;
 			}
 
 			.header {
@@ -334,6 +378,69 @@
 				content: "📡 ";
 				color: var(--pastel-orange);
 			}
+
+			.footer {
+				margin-top: 40px;
+				padding: 24px;
+				background: var(--bg-secondary);
+				border: 4px solid var(--pastel-purple);
+				box-shadow: 4px 4px 0px var(--dark-purple), 8px 8px 0px var(--bg-primary);
+				text-align: center;
+				position: relative;
+			}
+
+			.footer::before {
+				content: "";
+				position: absolute;
+				top: 8px;
+				left: 8px;
+				right: 8px;
+				bottom: 8px;
+				border: 2px solid var(--pastel-cyan);
+				pointer-events: none;
+			}
+
+			.footer-content {
+				color: var(--pastel-purple);
+				font-size: 0.6rem;
+				line-height: 1.8;
+				margin-bottom: 16px;
+				text-shadow: 1px 1px 0px var(--dark-purple), 2px 2px 0px rgba(0, 0, 0, 0.8);
+			}
+
+			.footer-links {
+				display: flex;
+				justify-content: center;
+				gap: 20px;
+				flex-wrap: wrap;
+				margin-bottom: 16px;
+			}
+
+			.footer-link {
+				color: var(--pastel-cyan);
+				text-decoration: none;
+				font-size: 0.65rem;
+				padding: 8px 12px;
+				border: 2px solid var(--pastel-cyan);
+				background: var(--bg-primary);
+				transition: none;
+				text-shadow: 1px 1px 0px var(--dark-cyan);
+			}
+
+			.footer-link:hover {
+				background: var(--pastel-cyan);
+				color: var(--bg-primary);
+				box-shadow: 2px 2px 0px var(--dark-cyan);
+				transform: translate(-1px, -1px);
+			}
+
+			.footer-credit {
+				color: var(--pastel-yellow);
+				font-size: 0.55rem;
+				text-shadow: 1px 1px 0px var(--dark-yellow);
+				margin-top: 12px;
+			}
+
 			@media (max-width: 768px) {
 				.sounds-container {
 					grid-template-columns: 1fr;
@@ -368,32 +475,82 @@
 				.tip {
 					font-size: 0.6rem;
 				}
+
+				.footer {
+					margin-top: 30px;
+					padding: 16px;
+				}
+
+				.footer-content {
+					font-size: 0.55rem;
+				}
+
+				.footer-links {
+					gap: 12px;
+				}
+
+				.footer-link {
+					font-size: 0.6rem;
+					padding: 6px 10px;
+				}
+
+				.footer-credit {
+					font-size: 0.5rem;
+				}
 			}
 		</style>
-		<script type="module" crossorigin src="/main-BHmUmvTd.js"></script>
+		<script type="module" crossorigin src="/main-DfBhRheb.js"></script>
 	</head>
 	<body>
-		<div class="header">
-			<h1>♫ NEIL ROGERS SOUNDBOARD ♫</h1>
-			<p class="subtitle">NEILROGERS.ORG • <span id="sound-count">0</span> AUDIO DROPS</p>
-		</div>
-
-		<div class="controls">
-			<div class="search-container">
-				<input
-					type="search"
-					id="search-input"
-					class="search-input"
-					placeholder="SEARCH FOR SOUNDS..."
-					autocomplete="off"
-				/>
+		<div class="main-content">
+			<div class="header">
+				<h1>♫ SOUNDBOARD ♫</h1>
+				<p class="subtitle">SOUNDBOARD • <span id="sound-count">0</span> AUDIO DROPS</p>
 			</div>
-			<div class="tip">↑ PRESS [S] TO SEARCH • CLICK TO PLAY ↑</div>
+
+			<div class="controls">
+				<div class="search-container">
+					<input
+						type="search"
+						id="search-input"
+						class="search-input"
+						placeholder="SEARCH FOR SOUNDS..."
+						autocomplete="off"
+					/>
+				</div>
+				<div class="tip">↑ PRESS [S] TO SEARCH • CLICK TO PLAY ↑</div>
+			</div>
+
+			<div id="sounds-container" class="sounds-container">
+				<div class="loading">LOADING SOUNDS...</div>
+			</div>
 		</div>
 
-		<div id="sounds-container" class="sounds-container">
-			<div class="loading">LOADING SOUNDS...</div>
-		</div>
+		<footer class="footer">
+			<div class="footer-content">POWERED BY PWA SOUNDBOARD • OPEN SOURCE & FREE TO USE</div>
+			<div class="footer-links">
+				<a
+					href="https://github.com/digitalcolony/soundboard-pwa"
+					class="footer-link"
+					target="_blank"
+					rel="noopener"
+				>
+					📂 SOURCE CODE
+				</a>
+				<a
+					href="https://github.com/digitalcolony/soundboard-pwa#readme"
+					class="footer-link"
+					target="_blank"
+					rel="noopener"
+				>
+					📖 DOCUMENTATION
+				</a>
+				<a href="https://neilrogers.org/" class="footer-link" target="_blank" rel="noopener">
+					📻 THE NEIL ROGERS SHOW
+				</a>
+			</div>
+			<div class="footer-credit">2025 Michael Allen Smith</div>
+		</footer>
 
 		<div id="status" class="status"></div>
 		<div id="offline-indicator" class="offline-indicator">OFFLINE MODE - USING CACHED SOUNDS</div>
