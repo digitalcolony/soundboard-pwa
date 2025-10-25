@@ -24,6 +24,15 @@ This soundboard is designed to be **completely generic and easily customizable**
 - 🎨 **Easy theming**: Custom colors, text, and branding via config file
 - 🔧 **Automatic metadata**: Generates sound data from MP3 ID3 tags
 
+## Tech Stack
+
+- Vite 7 for fast dev server, optimized builds, and PWA asset bundling
+- Vanilla JavaScript (ES modules) for the client-side soundboard logic
+- Workbox 7 libraries to power service worker caching strategies
+- Web App Manifest and service worker APIs for installability/offline UX
+- Node.js scripts (`sync-data.js`, `generate-sounds.js`) to prepare content at build time
+- npm for dependency management and project automation scripts
+
 ## Installation
 
 ### For Users
