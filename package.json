@@ -35,7 +35,7 @@
         "build:setup": "npm run setup && npm run build"
     },
     "devDependencies": {
-        "vite": "^5.0.0"
+        "vite": "^5.4.21"
     },
     "dependencies": {
         "node-id3": "^0.2.9",
