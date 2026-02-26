@@ -283,7 +283,7 @@
     {
       "name": "Fart 2",
       "artist": "Neil Rogers",
-      "mp3": "/sounds/Fart 2.mp3"
+      "mp3": "/sounds/Fart-2.mp3"
     },
     {
       "name": "Wet fart",
@@ -941,6 +941,11 @@
       "mp3": "/sounds/Laugh-Montage.mp3"
     },
     {
+      "name": "Laugh Track",
+      "artist": "Jim Mandich",
+      "mp3": "/sounds/Laugh-Track.mp3"
+    },
+    {
       "name": "Lay Down on My Couch",
       "artist": "Jim Mandich",
       "mp3": "/sounds/Lay-Down-on-my-Couch.mp3"
@@ -1326,6 +1331,11 @@
       "mp3": "/sounds/Scream.mp3"
     },
     {
+      "name": "Screw the Listeners",
+      "artist": "Jim Mandich",
+      "mp3": "/sounds/Screw-the-Listeners.mp3"
+    },
+    {
       "name": "Sheik Laugh",
       "artist": "",
       "mp3": "/sounds/Sheik-Laugh.mp3"
@@ -1468,7 +1478,7 @@
     {
       "name": "They Don't Come Any Better (Gilbert)",
       "artist": "Gilbert Solomon",
-      "mp3": "/sounds/They Don't Come Any Better (Gilbert).mp3"
+      "mp3": "/sounds/They-Don't-Come-Any-Better-Gilbert.mp3"
     },
     {
       "name": "They Don't Come Any Better Than Neil Rogers",
@@ -1504,6 +1514,11 @@
       "name": "Those People Are Assholes",
       "artist": "Johnny Dark",
       "mp3": "/sounds/Those-People-Are-Assholes.mp3"
+    },
+    {
+      "name": "Tits on Blonde",
+      "artist": "Jim Mandich",
+      "mp3": "/sounds/Tits-Blonde.mp3"
     },
     {
       "name": "Turd drop",
@@ -1586,6 +1601,11 @@
       "mp3": "/sounds/Were-You-Fudge-Packin_Q.mp3"
     },
     {
+      "name": "Whack It",
+      "artist": "Jim Mandich",
+      "mp3": "/sounds/Whack-It.mp3"
+    },
+    {
       "name": "Yo man what's up with your gantzeh mishpocha",
       "artist": "Dave Cook",
       "mp3": "/sounds/What's-up-with-your-gantzeh-mishpocha_Q.mp3"
@@ -1628,7 +1648,7 @@
     {
       "name": "Worst Talk Radio I Ever Heard",
       "artist": "Larry King",
-      "mp3": "/sounds/Worst-Talk Radio-I-Ever-Heard.mp3"
+      "mp3": "/sounds/Worst-Talk-Radio-I-Ever-Heard.mp3"
     },
     {
       "name": "Y O",

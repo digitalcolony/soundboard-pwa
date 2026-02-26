@@ -319,7 +319,7 @@ class SoundboardApp {
 	updateSubtitle(soundCount) {
 		const subtitle = document.querySelector(".header .subtitle");
 		if (subtitle) {
-			subtitle.innerHTML = `${this.config.subtitle} • <span id="sound-count">${soundCount}</span> ${this.config.soundCountText}`;
+			subtitle.innerHTML = `${this.config.subtitle} • <span id="sound-count">${soundCount}</span> ${this.config.soundCountText}<span class="cache-legend">💾 THIS DROP IS SAVED AND CAN PLAY OFFLINE</span>`;
 		}
 	}
 
@@ -379,7 +379,7 @@ class SoundboardApp {
 
 				if (!dataLoaded) {
 					console.warn(
-						"⚠️ Could not load sounds from any API endpoint, using cached or fallback data"
+						"⚠️ Could not load sounds from any API endpoint, using cached or fallback data",
 					);
 				}
 			}
@@ -420,7 +420,7 @@ class SoundboardApp {
 			const query = this.searchQuery.toLowerCase();
 			this.filteredSounds = this.sounds.filter(
 				(sound) =>
-					sound.name.toLowerCase().includes(query) || sound.artist.toLowerCase().includes(query)
+					sound.name.toLowerCase().includes(query) || sound.artist.toLowerCase().includes(query),
 			);
 		}
 		await this.renderSounds();
@@ -468,8 +468,9 @@ class SoundboardApp {
             >
                 <div class="sound-name">${this.escapeHtml(sound.name)}</div>
                 <div class="sound-artist">${this.escapeHtml(sound.artist)}</div>
+                ${sound.isCached ? '<span class="cache-icon" aria-hidden="true">💾</span>' : ""}
             </button>
-        `
+        `,
 			)
 			.join("");
 		// Add click listeners to sound buttons
@@ -614,9 +615,20 @@ class SoundboardApp {
 				if (sound.mp3 === soundPath) {
 					if (isCached) {
 						button.classList.add("cached");
+						if (!button.querySelector(".cache-icon")) {
+							const cacheIcon = document.createElement("span");
+							cacheIcon.className = "cache-icon";
+							cacheIcon.setAttribute("aria-hidden", "true");
+							cacheIcon.textContent = "💾";
+							button.appendChild(cacheIcon);
+						}
 						console.log("💾 UI updated: Sound cached -", soundPath);
 					} else {
 						button.classList.remove("cached");
+						const cacheIcon = button.querySelector(".cache-icon");
+						if (cacheIcon) {
+							cacheIcon.remove();
+						}
 					}
 				}
 			} catch (error) {
@@ -644,5 +656,5 @@ document.addEventListener(
 		}
 		document.removeEventListener("click", enableAudio);
 	},
-	{ once: true }
+	{ once: true },
 );

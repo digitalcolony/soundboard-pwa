@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
@@ -145,7 +145,9 @@
 				border: 4px solid var(--pastel-pink);
 				border-radius: 0;
 				/* 8-bit shadow effect */
-				box-shadow: 4px 4px 0px var(--dark-pink), 8px 8px 0px var(--dark-purple);
+				box-shadow:
+					4px 4px 0px var(--dark-pink),
+					8px 8px 0px var(--dark-purple);
 				position: relative;
 			}
 
@@ -164,7 +166,9 @@
 				font-size: 1.8rem;
 				margin-bottom: 12px;
 				color: var(--pastel-cyan);
-				text-shadow: 2px 2px 0px var(--dark-cyan), 4px 4px 0px var(--bg-primary),
+				text-shadow:
+					2px 2px 0px var(--dark-cyan),
+					4px 4px 0px var(--bg-primary),
 					1px 1px 0px rgba(0, 0, 0, 0.8);
 				letter-spacing: 1px;
 			}
@@ -172,7 +176,20 @@
 			.header .subtitle {
 				color: var(--pastel-yellow);
 				font-size: 0.8rem;
-				text-shadow: 1px 1px 0px var(--dark-yellow), 2px 2px 0px rgba(0, 0, 0, 0.8);
+				line-height: 1.8;
+				text-shadow:
+					1px 1px 0px var(--dark-yellow),
+					2px 2px 0px rgba(0, 0, 0, 0.8);
+			}
+
+			.header .cache-legend {
+				display: block;
+				margin-top: 6px;
+				font-size: 0.55rem;
+				color: var(--pastel-green);
+				text-shadow:
+					1px 1px 0px var(--dark-green),
+					2px 2px 0px rgba(0, 0, 0, 0.8);
 			}
 
 			.controls {
@@ -180,7 +197,9 @@
 				border: 4px solid var(--pastel-green);
 				padding: 20px;
 				margin-bottom: 20px;
-				box-shadow: 4px 4px 0px var(--dark-green), 8px 8px 0px var(--bg-primary);
+				box-shadow:
+					4px 4px 0px var(--dark-green),
+					8px 8px 0px var(--bg-primary);
 				position: relative;
 			}
 
@@ -206,7 +225,9 @@
 				border: 3px solid var(--pastel-blue);
 				background: var(--bg-tertiary);
 				color: var(--text-primary);
-				box-shadow: inset 2px 2px 0px var(--bg-primary), 2px 2px 0px var(--dark-blue);
+				box-shadow:
+					inset 2px 2px 0px var(--bg-primary),
+					2px 2px 0px var(--dark-blue);
 				outline: none;
 				transition: none;
 				line-height: 1.4;
@@ -218,13 +239,17 @@
 
 			.search-input:focus {
 				border-color: var(--pastel-cyan);
-				box-shadow: inset 2px 2px 0px var(--bg-primary), 2px 2px 0px var(--dark-cyan),
+				box-shadow:
+					inset 2px 2px 0px var(--bg-primary),
+					2px 2px 0px var(--dark-cyan),
 					0 0 0 2px var(--pastel-yellow);
 			}
 			.tip {
 				font-size: 0.7rem;
 				color: var(--pastel-orange);
-				text-shadow: 1px 1px 0px var(--dark-orange), 2px 2px 0px rgba(0, 0, 0, 0.8);
+				text-shadow:
+					1px 1px 0px var(--dark-orange),
+					2px 2px 0px rgba(0, 0, 0, 0.8);
 				text-align: center;
 				line-height: 1.6;
 			}
@@ -247,21 +272,27 @@
 				line-height: 1.8;
 				position: relative;
 				transition: none;
-				box-shadow: 3px 3px 0px var(--dark-coral), 6px 6px 0px var(--bg-primary);
+				box-shadow:
+					3px 3px 0px var(--dark-coral),
+					6px 6px 0px var(--bg-primary);
 			}
 
 			.sound-button:hover {
 				background: var(--pastel-coral);
 				color: var(--bg-primary);
 				border-color: var(--pastel-yellow);
-				box-shadow: 3px 3px 0px var(--dark-yellow), 6px 6px 0px var(--bg-primary),
+				box-shadow:
+					3px 3px 0px var(--dark-yellow),
+					6px 6px 0px var(--bg-primary),
 					9px 9px 0px var(--dark-coral);
 				transform: translate(-2px, -2px);
 			}
 
 			.sound-button:active {
 				transform: translate(2px, 2px);
-				box-shadow: 1px 1px 0px var(--dark-coral), 2px 2px 0px var(--bg-primary);
+				box-shadow:
+					1px 1px 0px var(--dark-coral),
+					2px 2px 0px var(--bg-primary);
 			}
 			.sound-button::before {
 				content: "♪";
@@ -271,27 +302,35 @@
 				color: var(--pastel-green);
 				font-size: 0.8rem;
 			}
-			.sound-button.cached::after {
-				content: "💾";
+			.cache-icon {
 				position: absolute;
 				bottom: 8px;
 				right: 8px;
 				color: var(--pastel-green);
 				font-size: 0.7rem;
-				text-shadow: 1px 1px 0px var(--dark-green), 2px 2px 0px rgba(0, 0, 0, 0.8);
+				text-shadow:
+					1px 1px 0px var(--dark-green),
+					2px 2px 0px rgba(0, 0, 0, 0.8);
+				pointer-events: none;
+				line-height: 1;
+				z-index: 2;
 			}
 			.sound-name {
 				font-weight: normal;
 				margin-bottom: 10px;
 				color: var(--pastel-cyan);
-				text-shadow: 1px 1px 0px var(--dark-cyan), 2px 2px 0px rgba(0, 0, 0, 0.8);
+				text-shadow:
+					1px 1px 0px var(--dark-cyan),
+					2px 2px 0px rgba(0, 0, 0, 0.8);
 				font-size: 0.8rem;
 			}
 
 			.sound-artist {
 				font-size: 0.65rem;
 				color: var(--pastel-purple);
-				text-shadow: 1px 1px 0px var(--dark-purple), 2px 2px 0px rgba(0, 0, 0, 0.8);
+				text-shadow:
+					1px 1px 0px var(--dark-purple),
+					2px 2px 0px rgba(0, 0, 0, 0.8);
 				line-height: 1.4;
 			}
 
@@ -308,7 +347,9 @@
 				opacity: 0;
 				transition: opacity 0.3s ease;
 				border: 3px solid var(--pastel-blue);
-				box-shadow: 3px 3px 0px var(--dark-blue), 6px 6px 0px var(--bg-primary);
+				box-shadow:
+					3px 3px 0px var(--dark-blue),
+					6px 6px 0px var(--bg-primary);
 				line-height: 1.6;
 			}
 
@@ -318,12 +359,16 @@
 
 			.status.success {
 				border-color: var(--pastel-green);
-				box-shadow: 3px 3px 0px var(--dark-green), 6px 6px 0px var(--bg-primary);
+				box-shadow:
+					3px 3px 0px var(--dark-green),
+					6px 6px 0px var(--bg-primary);
 			}
 
 			.status.error {
 				border-color: var(--pastel-coral);
-				box-shadow: 3px 3px 0px var(--dark-coral), 6px 6px 0px var(--bg-primary);
+				box-shadow:
+					3px 3px 0px var(--dark-coral),
+					6px 6px 0px var(--bg-primary);
 			}
 
 			.loading {
@@ -331,7 +376,9 @@
 				padding: 40px;
 				color: var(--pastel-purple);
 				font-size: 0.9rem;
-				text-shadow: 1px 1px 0px var(--dark-purple), 2px 2px 0px rgba(0, 0, 0, 0.8);
+				text-shadow:
+					1px 1px 0px var(--dark-purple),
+					2px 2px 0px rgba(0, 0, 0, 0.8);
 				line-height: 1.6;
 			}
 
@@ -366,7 +413,9 @@
 				z-index: 1000;
 				display: none;
 				border: 3px solid var(--pastel-orange);
-				box-shadow: 3px 3px 0px var(--dark-orange), 6px 6px 0px var(--bg-primary);
+				box-shadow:
+					3px 3px 0px var(--dark-orange),
+					6px 6px 0px var(--bg-primary);
 				line-height: 1.6;
 			}
 
@@ -384,7 +433,9 @@
 				padding: 24px;
 				background: var(--bg-secondary);
 				border: 4px solid var(--pastel-purple);
-				box-shadow: 4px 4px 0px var(--dark-purple), 8px 8px 0px var(--bg-primary);
+				box-shadow:
+					4px 4px 0px var(--dark-purple),
+					8px 8px 0px var(--bg-primary);
 				text-align: center;
 				position: relative;
 			}
@@ -405,7 +456,9 @@
 				font-size: 0.6rem;
 				line-height: 1.8;
 				margin-bottom: 16px;
-				text-shadow: 1px 1px 0px var(--dark-purple), 2px 2px 0px rgba(0, 0, 0, 0.8);
+				text-shadow:
+					1px 1px 0px var(--dark-purple),
+					2px 2px 0px rgba(0, 0, 0, 0.8);
 			}
 
 			.footer-links {
