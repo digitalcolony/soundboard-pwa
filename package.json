@@ -34,10 +34,8 @@
         "dev:setup": "npm run setup && npm run dev",
         "build:setup": "npm run setup && npm run build"
     },
-    "devDependencies": {
-        "vite": "^7.3.1"
-    },
     "dependencies": {
+        "vite": "^7.3.1",
         "node-id3": "^0.2.9",
         "workbox-core": "^7.4.0",
         "workbox-precaching": "^7.4.0",
