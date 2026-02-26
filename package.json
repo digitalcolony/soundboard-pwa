@@ -25,9 +25,9 @@
     },
     "homepage": "https://github.com/your-username/pwa-soundboard#readme",
     "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview",
+        "dev": "node ./node_modules/vite/bin/vite.js",
+        "build": "node ./node_modules/vite/bin/vite.js build",
+        "preview": "node ./node_modules/vite/bin/vite.js preview",
         "setup": "node sync-data.js",
         "generate-sounds": "node generate-sounds.js",
         "generate-icons": "start icon-generator.html",

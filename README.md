@@ -26,11 +26,11 @@ This soundboard is designed to be **completely generic and easily customizable**
 
 ## Tech Stack
 
-- Vite 7 for fast dev server, optimized builds, and PWA asset bundling
+- Vite 7.3.1 for fast dev server, optimized builds, and PWA asset bundling
 - Vanilla JavaScript (ES modules) for the client-side soundboard logic
-- Workbox 7 libraries to power service worker caching strategies
+- Workbox 7.4.0 libraries (`workbox-core`, `workbox-precaching`, `workbox-routing`, `workbox-strategies`) to power service worker caching strategies
 - Web App Manifest and service worker APIs for installability/offline UX
-- Node.js scripts (`sync-data.js`, `generate-sounds.js`) to prepare content at build time
+- Node.js scripts (`sync-data.js`, `generate-sounds.js`) and `node-id3` 0.2.9 to prepare content at build time
 - npm for dependency management and project automation scripts
 
 ## Installation
@@ -206,7 +206,6 @@ This will:
 
 1. **Update the main config**: Copy the example config: `cp config.example.json public/config.json`
 2. **Edit `public/config.json`** with your details:
-
    - Change the title, subtitle, and description
    - Update colors to match your brand
    - Customize all UI text
@@ -224,7 +223,6 @@ This will:
    ```
 
    **Important manifest fields to customize:**
-
    - `name`: Full app name (appears in app stores and installation prompts)
    - `short_name`: Shorter name (appears on home screen/desktop)
    - `description`: Brief description of your soundboard
@@ -348,8 +346,8 @@ The PWA automatically checks for updates when online:
 ## Technical Details
 
 - **Framework**: Vanilla JavaScript (no framework dependencies)
-- **Build Tool**: Vite
-- **Service Worker**: Custom implementation with Workbox strategies
+- **Build Tool**: Vite 7.3.1
+- **Service Worker**: Custom implementation with Workbox 7.4.0 strategies
 - **Storage**: Cache API for files, localStorage for data
 - **Icons**: Progressive Web App manifest with multiple icon sizes
 
