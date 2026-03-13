@@ -26,11 +26,6 @@
       "mp3": "/sounds/A-lot-of-masturbation-went-on.mp3"
     },
     {
-      "name": "About 30 Man",
-      "artist": "Fake Ol’ Dirty Bastard",
-      "mp3": "/sounds/About-30-man.mp3"
-    },
-    {
       "name": "Absolutely Correct Sir",
       "artist": "Neil Rogers/Old Bridge Dude",
       "mp3": "/sounds/Absolutely-Correct-Sir.mp3"
@@ -44,6 +39,11 @@
       "name": "All the Crap",
       "artist": "Moe Howard",
       "mp3": "/sounds/All-the-Crap.mp3"
+    },
+    {
+      "name": "Another Dick",
+      "artist": "Teri Griffin",
+      "mp3": "/sounds/Another-Dick.mp3"
     },
     {
       "name": "Another break already?",
@@ -104,6 +104,11 @@
       "name": "Bop Bop Bop",
       "artist": "Neil Rogers",
       "mp3": "/sounds/Bop-Bop-Bop.mp3"
+    },
+    {
+      "name": "Bout 30 Man",
+      "artist": "Fake Ol’ Dirty Bastard",
+      "mp3": "/sounds/Bout-30-man.mp3"
     },
     {
       "name": "Boy does he have a lot of chutzpah!",
